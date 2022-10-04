@@ -23,6 +23,16 @@ static int *ft_line(char *stash, char **line)
   return (1);
 }
 
+static int ft_return_value(char *stash, char **line, int n)
+{
+  if (n < 0)
+    return (-1);
+  else if (n == 0 && stash == NULL)
+    return (0);
+  else
+    return (ft_line(stash, line));
+}
+
 int get_next_line(const int fd, char **line)
 {
   char *buf[BUFF_SIZE + 1];
@@ -44,7 +54,7 @@ int get_next_line(const int fd, char **line)
     if (ft_strchr(stash, '\n'))
       break;
   }
-  return ;
+  return (ft_return_value(stash, line, n));
 }
 
 #include <fcntl.h>
