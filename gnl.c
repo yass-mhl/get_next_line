@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-void ft_line(char **stash, char **line)
+static int ft_line(char **stash, char **line)
 {
   int i;
   char *tmp;
@@ -22,6 +22,17 @@ void ft_line(char **stash, char **line)
     *line = ft_strdup(*stash);
     ft_strdel(stash);
   }
+  return (1);
+}
+
+static int ft_return(char **stash, char **line, int n)
+{
+   if (n < 0)
+    return (-1);
+  else if (n == 0 && (*stash) == NULL)
+    return (0);
+  else
+    return (ft_line(stash, line));
 }
 
 int get_next_line(int fd, char **line)
@@ -31,12 +42,10 @@ int get_next_line(int fd, char **line)
   char *tmp;
   char buf[BUFF_SIZE + 1];
 
-  n = BUFF_SIZE;
   if (fd < 0 || BUFF_SIZE < 1 || !line)
     return (-1);
-  while(n > 0)
+  while((n = read(fd, buf, BUFF_SIZE)) > 0)
   {
-    n = read(fd, buf, BUFF_SIZE);
     buf[n] = 0;
     if (stash == NULL)
       stash = ft_strdup(buf);
@@ -49,13 +58,7 @@ int get_next_line(int fd, char **line)
     if (ft_strchr(stash, '\n'))
       break ;
   }
-  ft_line(&stash, line);
-   if (n < 0)
-    return (-1);
-  else if (n == 0 && stash == NULL)
-    return (0);
-  else
-    return (1);
+  return (ft_return(&stash, line, n));
 }
 
 int main()
