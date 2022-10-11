@@ -28,7 +28,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		len1;
@@ -55,47 +55,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (str);
 	}
 	return (NULL);
-}
-
-char *ft_strdup(const char *s)
-{
-  char *tab;
-  int len;
-  int i;
-
-  i = 0;
-  len = 0;
-
-  while (s[len])
-    len++;
-  tab = (char *)malloc(sizeof(*s) * (len + 1));
-  if (!tab)
-    return (NULL);
-  while (s[i])
-  {
-    tab[i] = s[i];
-    i++;
-  }
-  tab[i] = 0;
-  return (tab);
-}
-
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
-{
-  char *res;
-  size_t i;
-
-  res = ft_memalloc(len + 1);
-  if (!res)
-    return (NULL);
-  i = 0;
-  while (i < len)
-  {
-    res[i] = s[start];
-    i++;
-    start++;
-  }
-  res[i] = 0;
-
-  return (res);
 }
