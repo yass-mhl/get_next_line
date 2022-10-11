@@ -2,18 +2,25 @@
 
 char *ft_read(int fd, char *stash)
 {
-  char buf[BUFFER_SIZE + 1];
+  char *buf;
   int n;
 
   n = 1;
+  buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+  if (!buf)
+    return (NULL);
   while(n != 0 && !ft_strchr(stash, '\n'))
   {
     n = read(fd, buf, BUFFER_SIZE);
     if (n == -1)
 			return (NULL);
     buf[n] = 0;
-    stash = ft_strjoin(stash, buf);
+    if (stash == NULL)
+      stash = ft_strdup(buf);
+    else
+      stash = ft_strjoin(stash, buf);
   }
+  free(buf);
   return (stash);
 }
 
@@ -30,6 +37,7 @@ char *ft_line(char *stash)
   str = (char *)malloc(sizeof(char) * (i + 2));
 	if (!str)
 		return (NULL);
+  i = 0;
   while (stash[i] && stash[i] != '\n')
   {
     str[i] = stash[i];
