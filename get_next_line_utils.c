@@ -79,3 +79,29 @@ char *ft_strdup(char *s)
   tab[i] = 0;
   return (tab);
 }
+
+char *ft_new_stash(char *stash)
+{
+  int i;
+  int j;
+  char *str;
+
+  i = 0;
+  while (stash[i] && stash[i] != '\n')
+    i++;
+  if (!stash[i])
+	{
+		free(stash);
+		return (NULL);
+	}
+  str = (char *)malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
+	if (!str)
+		return (NULL);
+  i++;
+  j = 0;
+  while (stash[i])
+    str[j++] = stash[i++];
+  str[j] = '\0';
+  free(stash);
+  return (str);
+}

@@ -54,32 +54,6 @@ char *ft_line(char *stash)
   return (str);
 }
 
-char *ft_new_stash(char *stash)
-{
-  int i;
-  int j;
-  char *str;
-
-  i = 0;
-  while (stash[i] && stash[i] != '\n')
-    i++;
-  if (!stash[i])
-	{
-		free(stash);
-		return (NULL);
-	}
-  str = (char *)malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
-	if (!str)
-		return (NULL);
-  i++;
-  j = 0;
-  while (stash[i])
-    str[j++] = stash[i++];
-  str[j] = '\0';
-  free(stash);
-  return (str);
-}
-
 char *get_next_line(int fd)
 {
   static char *stash;
@@ -95,20 +69,20 @@ char *get_next_line(int fd)
   return (line);
 }
 
-#include <fcntl.h>
-#include <stdio.h>
+// #include <fcntl.h>
+// #include <stdio.h>
 
-int main()
-{
-  int fd;
-  int i;
+// int main()
+// {
+//   int fd;
+//   int i;
 
-  i = 0;
-	fd = open("test.txt", O_RDONLY);
-  while( i < 4)
-  {
-    printf("%s\n", get_next_line(fd));
-    i++;
-  }
+//   i = 0;
+// 	fd = open("tests/test", O_RDONLY);
+//   while( i < 1)
+//   {
+//     printf("%s\n", get_next_line(fd));
+//     i++;
+//   }
 
-}
+// }
